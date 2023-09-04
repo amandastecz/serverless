@@ -7,7 +7,7 @@
     "dev": "serverless offline",
     "dynamodb:start": "serverless dynamodb start",
     "dynamodb:install": "serverless dynamodb install",
-    "deploy": "serverless deploy -v"
+    "deploy": "serverless deploy --verbose"
   },
   "engines": {
     "node": ">=14.15.0"
@@ -15,11 +15,14 @@
   "dependencies": {
     "@middy/core": "^3.4.0",
     "@middy/http-json-body-parser": "^3.4.0",
-    "aws-sdk": "^2.1448.0"
+    "aws-sdk": "^2.1448.0",
+    "dayjs": "^1.11.9",
+    "handlebars": "^4.7.8"
   },
   "devDependencies": {
     "@serverless/typescript": "^3.0.0",
     "@types/aws-lambda": "^8.10.71",
+    "@types/handlebars": "^4.1.0",
     "@types/node": "^14.14.25",
     "esbuild": "^0.19.2",
     "json-schema-to-ts": "^1.5.0",
