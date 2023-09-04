@@ -1,11 +1,29 @@
 import { APIGatewayProxyHandler } from "aws-lambda";
 import { document } from "../utils/dynamoDBClient";
+import * as Handlebars from "handlebars";
+import { join } from "path";
+import { readFileSync } from "fs";
 
 interface ICreateCertificate {
     id: string,
     name: string,
     grade: string
 }
+
+interface ITemplate {
+    id: string,
+    name: string,
+    grade: string,
+    medal: string,
+    date: string,
+}
+
+const compileTemplate = (data: ITemplate) => {
+    const filePath = join(process.cwd(), "src", "templates", "certificate.hbs");
+    const html = readFileSync(filePath, "utf-8");
+    return Handlebars.compile(html)(data);
+}
+
 export const handler: APIGatewayProxyHandler = async (event) => {
     const {id, name, grade} = JSON.parse(event.body) as ICreateCertificate;
     await document.put({
