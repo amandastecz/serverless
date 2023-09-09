@@ -13,9 +13,9 @@
     "node": ">=14.15.0"
   },
   "dependencies": {
-    "@middy/core": "^2.5.3",
-    "@middy/http-json-body-parser": "^2.5.3",
-    "aws-sdk": "^2.1451.0",
+    "@middy/core": "^3.4.0",
+    "@middy/http-json-body-parser": "^3.4.0",
+    "aws-sdk": "^2.1448.0",
     "chrome-aws-lambda": "^10.1.0",
     "dayjs": "^1.11.9",
     "handlebars": "^4.7.8",
@@ -29,8 +29,8 @@
     "json-schema-to-ts": "^1.5.0",
     "serverless": "^3.0.0",
     "serverless-dynamodb-local": "https://github.com/eheyder/serverless-dynamodb-local.git#v1",
-    "serverless-esbuild": "^1.17.1",
-    "serverless-offline": "^11.0.0",
+    "serverless-esbuild": "^1.23.3",
+    "serverless-offline": "^12.0.4",
     "ts-node": "^10.4.0",
     "tsconfig-paths": "^3.9.0",
     "typescript": "^4.1.3"
