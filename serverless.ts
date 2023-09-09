@@ -2,7 +2,7 @@ import type { AWS } from '@serverless/typescript';
 
 const serverlessConfiguration: AWS = {
   service: 'serverlesscertificate',
-  frameworkVersion: '3',
+  frameworkVersion: '2',
   plugins: ['serverless-esbuild', 'serverless-dynamodb-local', 'serverless-offline'],
   provider: {
     name: 'aws',
