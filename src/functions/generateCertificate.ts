@@ -29,15 +29,6 @@ const compileTemplate = async (data: ITemplate) => {
 
 export const handler: APIGatewayProxyHandler = async (event) => {
     const {id, name, grade} = JSON.parse(event.body) as ICreateCertificate;
-    await document.put({
-        TableName: "users_certificate",
-        Item: {
-            id,
-            name,
-            grade,
-            created_at: new Date().getTime(),
-        }
-    }).promise();
     const response = await document.query({
         TableName: "users_certificate",
         KeyConditionExpression: "id = :id",
@@ -45,6 +36,18 @@ export const handler: APIGatewayProxyHandler = async (event) => {
             ":id": id
         }
     }).promise();
+    const userAlreadyExists = response.Items[0];
+    if(!userAlreadyExists){
+        await document.put({
+            TableName: "users_certificate",
+            Item: {
+                id,
+                name,
+                grade,
+                created_at: new Date().getTime(),
+            }
+        }).promise();
+    }
     const medalPath = join(process.cwd(), "src", "templates", "selo.png");
     const medal = readFileSync(medalPath, "base64");
     const data: ITemplate = {
@@ -78,7 +81,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
         Body: pdf,
         ContentType: "application/pdf"
     }).promise();
-    
+
     return {
         statusCode: 201,
         body: JSON.stringify(response.Items[0]),
