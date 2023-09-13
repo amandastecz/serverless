@@ -5,6 +5,7 @@ import { join } from "path";
 import { readFileSync } from "fs";
 import dayjs from "dayjs";
 import chromium from "chrome-aws-lambda";
+import {S3} from "aws-sdk";
 
 interface ICreateCertificate {
     id: string,
@@ -69,6 +70,15 @@ export const handler: APIGatewayProxyHandler = async (event) => {
         path: process.env.IS_OFFLINE ? "./certificate.pdf": null
     });
     await browser.close();
+    const s3 = new S3();
+    await s3.putObject({
+        Bucket: "serverless-certificate-generator",
+        Key: `${id}.pdf`,
+        ACL: "public-read",
+        Body: pdf,
+        ContentType: "application/pdf"
+    }).promise();
+    
     return {
         statusCode: 201,
         body: JSON.stringify(response.Items[0]),
