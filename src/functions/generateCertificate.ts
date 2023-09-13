@@ -55,7 +55,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
         id,
         grade,
         medal,
-        date: dayjs().format("DD/MM/YYY"),
+        date: dayjs().format("DD/MM/YYYY"),
     }
     const content = await compileTemplate(data);
     const browser = await chromium.puppeteer.launch({
@@ -84,6 +84,9 @@ export const handler: APIGatewayProxyHandler = async (event) => {
 
     return {
         statusCode: 201,
-        body: JSON.stringify(response.Items[0]),
+        body: JSON.stringify({
+            message: "Certificado criado com sucesso!",
+            url: `https://serverless-certificate-generator.s3.us-east-1.amazonaws.com/${id}.pdf`
+        }),
     }
 }
